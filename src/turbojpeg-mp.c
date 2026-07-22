@@ -368,9 +368,11 @@ _JSAMPLE *GET_NAME(_tj3LoadImageFromFileHandle, BITS_IN_JSAMPLE)
   *pixelFormat = cs2pf[cinfo->in_color_space];
 
   pitch = PAD((*width) * tjPixelSize[*pixelFormat], align);
+
   if (
 #if ULLONG_MAX > SIZE_MAX
-      (unsigned long long)pitch * (unsigned long long)(*height) >
+      (unsigned long long)pitch * (unsigned long long)(*height) *
+      (unsigned long long)sizeof(_JSAMPLE) >
       (unsigned long long)((size_t)-1) ||
 #endif
       (dstBuf = (_JSAMPLE *)malloc(pitch * (*height) *

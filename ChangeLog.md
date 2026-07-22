@@ -34,6 +34,10 @@ properly if the only iMCU column in the input image is partial, so jpegtran now
 throws an error if that is the case.  These issues were confined to the
 jpegtran application and thus did not pose a security risk.
 
+4. Fixed an integer overflow and subsequent buffer overrun that occurred when
+attempting to use `tj3LoadImage12()` or `tj3LoadImage16()` from a 32-bit build
+of libjpeg-turbo to load a packed-pixel image with more than 2^31 components.
+
 
 3.1.4.1
 =======
