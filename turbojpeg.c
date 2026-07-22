@@ -282,6 +282,18 @@ static int cs2pf[JPEG_NUMCS] = {
   } \
 }
 
+/* Catch a libjpeg error from the secondary TurboJPEG instance and copy the
+   error message and state to the primary instance.  This is used by
+   the packed-pixel image I/O functions. */
+#define CATCH_LIBJPEG2() { \
+  if (setjmp(this2->jerr.setjmp_buffer)) { \
+    strncpy(this->errStr, this2->errStr, JMSG_LENGTH_MAX); \
+    this->jerr.warning = this2->jerr.warning; \
+    this->isInstanceError = this2->isInstanceError; \
+    retval = -1;  goto bailout; \
+  } \
+}
+
 #define GET_INSTANCE(handle) \
   tjinstance *this = (tjinstance *)handle; \
   j_compress_ptr cinfo = NULL; \
