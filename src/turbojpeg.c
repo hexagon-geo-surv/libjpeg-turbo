@@ -291,7 +291,7 @@ static int cs2pf[JPEG_NUMCS] = {
    the packed-pixel image I/O functions. */
 #define CATCH_LIBJPEG2() { \
   if (setjmp(this2->jerr.setjmp_buffer)) { \
-    strncpy(this->errStr, this2->errStr, JMSG_LENGTH_MAX); \
+    memcpy(this->errStr, this2->errStr, JMSG_LENGTH_MAX); \
     this->jerr.warning = this2->jerr.warning; \
     this->isInstanceError = this2->isInstanceError; \
     retval = -1;  goto bailout; \
