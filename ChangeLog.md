@@ -49,6 +49,14 @@ JPEG image using the merged (non-fancy) upsampling algorithm with the
 libjpeg-turbo SIMD extensions disabled and a cropping region that would have
 caused any of the component planes to be cropped to a width of 1 or 2 samples.
 
+7. Hardened the libjpeg API against hypothetical applications that may
+erroneously attempt to decompress a full-color 12-bit-per-sample JPEG image
+with both one-pass color quantization and RGB565 color conversion enabled.
+This could have caused a buffer overrun in one of the quantizer's color index
+arrays.  The buffer overrun did not likely pose a security risk, since an
+application that abused the API in the aforementioned manner could never work
+properly.
+
 
 3.1.4.1
 =======
