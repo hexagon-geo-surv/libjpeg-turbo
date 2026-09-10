@@ -55,6 +55,12 @@ arrays.  The buffer overrun did not likely pose a security risk, since an
 application that abused the API in the aforementioned manner could never work
 properly.
 
+9. Fixed issues in `jpeg*_skip_scanlines()` whereby, when skipping certain
+groups of scanlines while using a non-fancy (merged or plain) upsampling
+algorithm with a vertical sampling factor greater than 1, the wrong number of
+scanlines were skipped and/or skipped scanlines were returned in subsequent
+calls to `jpeg*_read_scanlines()`.
+
 
 3.2.0
 =====
